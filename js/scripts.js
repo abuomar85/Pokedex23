@@ -5,13 +5,14 @@
         { name: 'Squirtle', height: 5, types : ['Water4'] },
         
       ];
-for(let i=0; i<pokemonList.length; i++){
 
 
   //looping throw the pokemon list 
-  document.write(pokemonList[i].name + " height: " + pokemonList[i].height + "<br>");
-  //check if the pokemon very big 
-  if(pokemonList[i].height > 6  ) {
-    document.write(pokemonList[i].name +  "<span> is big </span> <br>")
+pokemonList.forEach(function(pokemon) {
+  document.write(pokemon.name + " height: " + pokemon.height + "<br>");
+   //check if the pokemon very big 
+  if(pokemon.height > 6  ) {
+    document.write(pokemon.name +  "<span> is big </span> <br>")
   }
-}
+
+})
