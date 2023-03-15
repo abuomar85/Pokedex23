@@ -1,42 +1,69 @@
-// use the  IIFE
-let pokemonRepository = (function() {
-// Creating Array with three pokemon all pokemon detail from https://pokedex.org/
-  let pokemonList  = [
-    { name: 'Bulbasaur', height: 7, types : ['grass', 'poison'] },
-    { name: 'Charmander', height: 6, types : ['Fire'] },
-    { name: 'Squirtle', height: 5, types : ['Water4'] },
-    
+let pokemonRepository = (function () {
+  // creating a pokemon array 
+  let repository = [
+    {
+      name: "Bulbasaur",
+      height: 0.7,
+      types: ["grass", "poison"],
+    },
+    {
+      name: "Charizard",
+      height: 1.7,
+      types: ["fire", "flying"],
+    },
+    {
+      name: "Squirtle",
+      height: 1,
+      types: ["water"],
+    },
   ];
-  // create a function to get all pokemon 
-  function getAll() {
-    return pokemonList;
-  }
-  // create a function to add the pokemon to the array 
+ // add a pokemon to array if the conditions are true
   function add(pokemon) {
-    //check the type of the inputs to allow the user to insert just an object
-    if (typeof pokemon === "object") {
-      pokemonList.push(pokemon);
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "height" in pokemon &&
+      "types" in pokemon
+    ) {
+      repository.push(pokemon);
     } else {
-      console.log("Please insert a valid Pokemon object.");
+      console.log("pokemon is not correct");
     }
+  }
+  // get all pokemons 
+  function getAll() {
+    return repository;
+  }
+  
+  //show details function 
+  function showDetails(pokemon) {
+    //log the pokemon name 
+    console.log(pokemon.target.innerText);
+  }
+  // add pokemons to the buttons inside html 
+  function addListItem(pokemon){
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    button.classList.add("button-class");
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
+    button.addEventListener('click', showDetails)
   }
   return {
     add: add,
-    getAll: getAll
-  }
+    getAll: getAll,
+    addListItem: addListItem
+  };
 })();
-console.log(pokemonRepository.getAll());
+
 // add a new pokemon to the array 
-pokemonRepository.add({ name: 'Pikachu', height:4, types : ['electric'] });
+pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
+
 console.log(pokemonRepository.getAll());
+// getting all pokemon 
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
 
-
-  //looping throw the pokemon list 
-  pokemonRepository.getAll().forEach(function(pokemon) {
-    document.write(pokemon.name + " height: " + pokemon.height + "<br>");
-     //check if the pokemon very big 
-    if(pokemon.height > 6  ) {
-      document.write(pokemon.name +  "<span> is big </span> <br>")
-    }
-  
-  })
